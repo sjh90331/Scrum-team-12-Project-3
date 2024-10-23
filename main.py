@@ -29,9 +29,11 @@ screen = pygame.display.set_mode([600, 500])
 base_font = pygame.font.Font(None, 32) 
 user_text = '' 
   
+question_text = 'Hey what are u doing me me swamp'
 # create rectangle 
-input_rect = pygame.Rect(200, 200, 140, 32) 
-button_rect = pygame.Rect(300,200,140,40)
+input_rect = pygame.Rect(100, 250, 340, 32) 
+button_rect = pygame.Rect(350,200,140,40)
+quest_rect = pygame.Rect(10, 10, 340, 50) 
   
 
 color_active = pygame.Color('lightskyblue3') 
@@ -51,6 +53,7 @@ height = screen.get_height()
 active = False
 
 while True: 
+    
     for event in pygame.event.get(): 
         mouse = pygame.mouse.get_pos() 
       # if user types QUIT then the screen will close 
@@ -98,6 +101,11 @@ while True:
     # draw rectangle and argument passed which should 
     # be on screen 
     pygame.draw.rect(screen, color, input_rect) 
+    quest_text_surface = base_font.render(question_text, True, (0,0, 0)) 
+      
+    # render at position stated in arguments 
+    screen.blit(quest_text_surface, (quest_rect.x+5, quest_rect.y+5)) 
+    #pygame.display.flip() 
   
     text_surface = base_font.render(user_text, True, (255, 255, 255)) 
       
@@ -107,7 +115,7 @@ while True:
     # set width of textfield so that text cannot get 
     # outside of user's text input 
     input_rect.w = max(100, text_surface.get_width()+10) 
-      
+    
     # display.flip() will update only a portion of the 
     # screen to updated, not full area 
     pygame.display.flip() 
