@@ -1,3 +1,7 @@
 import pygal
 import lxml
-import requests
+import api
+import json
+
+data = api.getAndPrint()
+print(type(data))
