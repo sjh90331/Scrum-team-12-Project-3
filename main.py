@@ -31,18 +31,18 @@ user_text = ''
   
 question_text = 'Hey what are u doing me me swamp'
 # create rectangle 
-input_rect = pygame.Rect(100, 250, 340, 32) 
-button_rect = pygame.Rect(350,200,140,40)
+input_rect = pygame.Rect(100, 50, 340, 32) 
+button_rect = pygame.Rect(350,100,140,40)
 quest_rect = pygame.Rect(10, 10, 340, 50) 
   
 
 color_active = pygame.Color('lightskyblue3') 
 
-color_light = (170,170,170) 
+color_light = (10,170,170) 
   
 # dark shade of the button 
 color_dark = (100,100,100) 
-color_passive = pygame.Color('chartreuse4') 
+color_passive = pygame.Color('aquamarine4') 
 color = color_passive 
 width = screen.get_width() 
   
@@ -66,6 +66,7 @@ while True:
             #     print(user_text)
             if button_rect.collidepoint(event.pos):
                 print(user_text)
+                question_text = user_text
             if input_rect.collidepoint(event.pos): 
                 active = True
             else: 
