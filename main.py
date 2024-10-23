@@ -18,22 +18,25 @@ import sys
   
 # pygame.init() will initialize all 
 # imported module 
+
+listofQuestions = ['Enter the stock symbol for the company you want data for',
+                   ]
 pygame.init() 
   
 clock = pygame.time.Clock() 
   
 # it will display on screen 
-screen = pygame.display.set_mode([600, 500]) 
+screen = pygame.display.set_mode([980, 900]) 
   
 # basic font for user typed 
 base_font = pygame.font.Font(None, 32) 
 user_text = '' 
   
-question_text = 'Hey what are u doing me me swamp'
+question_text = listofQuestions[0]
 # create rectangle 
 input_rect = pygame.Rect(100, 50, 340, 32) 
 button_rect = pygame.Rect(350,100,140,40)
-quest_rect = pygame.Rect(10, 10, 340, 50) 
+quest_rect = pygame.Rect(10, 10, 340, 10) 
   
 
 color_active = pygame.Color('lightskyblue3') 
