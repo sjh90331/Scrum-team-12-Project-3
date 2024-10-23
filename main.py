@@ -19,7 +19,11 @@ import sys
 # pygame.init() will initialize all 
 # imported module 
 
-listofQuestions = ['Enter the stock symbol for the company you want data for',
+listofQuestions = ['Enter the stock symbol for the company you would like',
+                   'Enter chart type you would like',
+                   'Enter the time series function desired',
+                   'Enter the beginning date in YYYY-MM-DD ',
+                   'Enter the end date in YYYY-MM-DD format', 
                    ]
 pygame.init() 
   
