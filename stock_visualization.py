@@ -14,6 +14,7 @@ def get_stock_data(symbol, function):
 
 def process_data(data, start_date, end_date):
     time_series = data.get("Time Series (Daily)", {})
+    #print(time_series)
     dates = []
     open_prices = []
     high_prices = []
@@ -28,6 +29,8 @@ def process_data(data, start_date, end_date):
             high_prices.append(float(values['2. high']))   # Use '2. high' for high price
             low_prices.append(float(values['3. low']))     # Use '3. low' for low price
             closing_prices.append(float(values['4. close']))  # Use '4. close' for closing price
+        else:
+            print("Something wrong with dates my boy")
 
     return dates, open_prices, high_prices, low_prices, closing_prices
 
