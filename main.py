@@ -4,6 +4,8 @@ import api
 import json
 import pygame 
 import sys 
+import stock_visualization
+from datetime import datetime
 
 class varaibles:
     listofQuestions = ['Enter the stock symbol for the company you would like',
@@ -15,6 +17,8 @@ class varaibles:
     question_text = listofQuestions[0]
     questionIndex = 0
     listOfInputs = []
+    secretQuestion = "Enter an end date not below the begining date."
+    errorText = ''
 
 
 # pygame.init() will initialize all 
@@ -38,6 +42,7 @@ user_text = ''
 input_rect = pygame.Rect(100, 50, 340, 32) 
 button_rect = pygame.Rect(350,100,140,40)
 quest_rect = pygame.Rect(10, 10, 340, 10) 
+error_rect = pygame.Rect(20, 410, 340, 10) 
   
 
 color_active = pygame.Color('lightskyblue3') 
@@ -57,12 +62,24 @@ height = screen.get_height()
 active = False
 def saveInput():
     varaibles.listOfInputs.append(user_text)
-    print("question index", varaibles.questionIndex)
+    #print("question index", varaibles.questionIndex)
     if varaibles.questionIndex < len(varaibles.listofQuestions)-1:
         #print(varaibles.questionIndex, len(varaibles.listofQuestions)-1)
         varaibles.questionIndex+=1
+    if varaibles.questionIndex == 4:
+        try:
+            varaibles.listOfInputs[3] = datetime.strptime(varaibles.listOfInputs[3], '%Y-%m-%d')
+        except:
+            varaibles.questionIndex-=1
+            varaibles.errorText = "Hey your input does not match format '%Y-%m-%d' try again"
+    if varaibles.questionIndex== 5:
+        varaibles.listOfInputs[4] = datetime.strptime(varaibles.listOfInputs[4], '%Y-%m-%d')
+        if varaibles.listOfInputs[4] < varaibles.listOfInputs[3]:
+            varaibles.question_text = varaibles.secretQuestion
     if varaibles.questionIndex == len(varaibles.listofQuestions)-1:
-        print("END OF QUESTION")
+        stock_visualization.stockMaker(varaibles.listOfInputs[0],varaibles.listOfInputs[1],varaibles.listOfInputs[2],
+                                       varaibles.listOfInputs[3],varaibles.listOfInputs[4])
+        #print("END OF QUESTION")
     
     questionAsker()
 def questionAsker():
@@ -132,6 +149,20 @@ while True:
     # render at position stated in arguments 
     screen.blit(quest_text_surface, (quest_rect.x+5, quest_rect.y+5)) 
     #pygame.display.flip() 
+  
+  
+  
+  
+  
+    error_text_surface = base_font.render(varaibles.errorText, True, (255,0, 0)) 
+      
+    # # render at position stated in arguments 
+    screen.blit(error_text_surface, (error_rect.x+5, error_rect.y+5)) 
+  
+  
+  
+  
+  
   
     text_surface = base_font.render(user_text, True, (255, 255, 255)) 
       

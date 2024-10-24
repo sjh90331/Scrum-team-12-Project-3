@@ -5,7 +5,8 @@ from datetime import datetime
 import webbrowser
 
 def get_stock_data(symbol, function):
-    url = f'https://www.alphavantage.co/query?function={function}&symbol={symbol}&interval=5min&apikey={API_KEY}'
+    import api
+    url = f'https://www.alphavantage.co/query?function={function}&symbol={symbol}&interval=5min&apikey={api.api}'
     response = requests.get(url)
     data = response.json()
     return data
