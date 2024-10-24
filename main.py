@@ -63,20 +63,33 @@ active = False
 def saveInput():
     varaibles.listOfInputs.append(user_text)
     #print("question index", varaibles.questionIndex)
-    if varaibles.questionIndex < len(varaibles.listofQuestions)-1:
+    if varaibles.questionIndex < len(varaibles.listofQuestions):
         #print(varaibles.questionIndex, len(varaibles.listofQuestions)-1)
         varaibles.questionIndex+=1
     if varaibles.questionIndex == 4:
         try:
+            ## FIRST DATE
             varaibles.listOfInputs[3] = datetime.strptime(varaibles.listOfInputs[3], '%Y-%m-%d')
-        except:
+        except Exception as e:
+            print(e, "FIRST DATE")
             varaibles.questionIndex-=1
+            varaibles.listOfInputs.pop(3)
             varaibles.errorText = "Hey your input does not match format '%Y-%m-%d' try again"
     if varaibles.questionIndex== 5:
-        varaibles.listOfInputs[4] = datetime.strptime(varaibles.listOfInputs[4], '%Y-%m-%d')
-        if varaibles.listOfInputs[4] < varaibles.listOfInputs[3]:
-            varaibles.question_text = varaibles.secretQuestion
-    if varaibles.questionIndex == len(varaibles.listofQuestions)-1:
+        
+        try:
+            ## END DATE
+            varaibles.listOfInputs[4] = datetime.strptime(varaibles.listOfInputs[4], '%Y-%m-%d')
+            if varaibles.listOfInputs[4] < varaibles.listOfInputs[3]:
+                varaibles.errorText = varaibles.secretQuestion
+                varaibles.listOfInputs.pop(4)
+        except Exception as e:
+            print(e, "END DATE")
+            varaibles.questionIndex-=1
+            varaibles.errorText = "Hey your input does not match format '%Y-%m-%d' try again"
+            varaibles.listOfInputs.pop(4)
+    if varaibles.questionIndex == 5:
+        print(varaibles.listOfInputs[3],varaibles.listOfInputs[4], type(varaibles.listOfInputs[3]),type(varaibles.listOfInputs[4]))
         stock_visualization.stockMaker(varaibles.listOfInputs[0],varaibles.listOfInputs[1],varaibles.listOfInputs[2],
                                        varaibles.listOfInputs[3],varaibles.listOfInputs[4])
         #print("END OF QUESTION")

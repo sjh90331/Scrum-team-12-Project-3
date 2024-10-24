@@ -20,7 +20,7 @@ def process_data(data, start_date, end_date):
     closing_prices = []
     
     for date, values in time_series.items():
-        if start_date <= date <= end_date:
+        if start_date <=  datetime.strptime(data, '%Y-%m-%d') <= end_date:
             dates.append(date)
             open_prices.append(float(values['1. open']))  # Use '1. open' for open price
             high_prices.append(float(values['2. high']))   # Use '2. high' for high price
@@ -69,6 +69,7 @@ def stockMaker(stock_symbol, chart_type,function,start_date,end_date):
     Start date in yyyy-mm-dd format
     end date in yyyy-mm-dd format
     """
+    print("made it here")
     # User input section
     # stock_symbol = input("Enter the stock symbol: ")
     # chart_type = input("Enter the chart type (line/bar): ")
@@ -78,10 +79,10 @@ def stockMaker(stock_symbol, chart_type,function,start_date,end_date):
     # end_date = input("Enter the end date (YYYY-MM-DD): ")
     
     # Validate date input
-    start_date_obj = datetime.strptime(start_date, '%Y-%m-%d')
-    end_date_obj = datetime.strptime(end_date, '%Y-%m-%d')
+    #start_date_obj = datetime.strptime(start_date, '%Y-%m-%d')
+    #end_date_obj = datetime.strptime(end_date, '%Y-%m-%d')
     
-    if end_date_obj < start_date_obj:
+    if end_date < start_date:
         print("Error: The end date cannot be before the start date.")
     else:
         stock_data = get_stock_data(stock_symbol, function)
