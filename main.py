@@ -5,26 +5,23 @@ import json
 import pygame 
 import sys 
 
-# data = api.getAndPrint()
-# jsonData =json.dumps(data)
-# #print(type(jsonData))
-# #print
-# print(len(data))
-# #print(jsonData)
-# print(data)
-
-
-  
-  
-# pygame.init() will initialize all 
-# imported module 
-
-listofQuestions = ['Enter the stock symbol for the company you would like',
-                   'Enter chart type you would like',
-                   'Enter the time series function desired',
+class varaibles:
+    listofQuestions = ['Enter the stock symbol for the company you would like',
+                   'Enter chart type you would like (line/bar)',
+                   'Enter the time series function desired (TIME_SERIES_DAILY, TIME_SERIES_WEEKLY, etc.)',
                    'Enter the beginning date in YYYY-MM-DD ',
                    'Enter the end date in YYYY-MM-DD format', 
                    ]
+    question_text = listofQuestions[0]
+    questionIndex = 0
+    listOfInputs = []
+
+
+# pygame.init() will initialize all 
+# imported module 
+
+
+
 pygame.init() 
   
 clock = pygame.time.Clock() 
@@ -36,7 +33,7 @@ screen = pygame.display.set_mode([980, 900])
 base_font = pygame.font.Font(None, 32) 
 user_text = '' 
   
-question_text = listofQuestions[0]
+
 # create rectangle 
 input_rect = pygame.Rect(100, 50, 340, 32) 
 button_rect = pygame.Rect(350,100,140,40)
@@ -58,6 +55,25 @@ width = screen.get_width()
 height = screen.get_height() 
   
 active = False
+def saveInput():
+    varaibles.listOfInputs.append(user_text)
+    print("question index", varaibles.questionIndex)
+    if varaibles.questionIndex < len(varaibles.listofQuestions)-1:
+        #print(varaibles.questionIndex, len(varaibles.listofQuestions)-1)
+        varaibles.questionIndex+=1
+    if varaibles.questionIndex == len(varaibles.listofQuestions)-1:
+        print("END OF QUESTION")
+    
+    questionAsker()
+def questionAsker():
+     # stock_symbol = input("Enter the stock symbol: ")
+    # chart_type = input("Enter the chart type (line/bar): ")
+    # function = input("Enter the time series function (TIME_SERIES_DAILY, TIME_SERIES_WEEKLY, etc.): ")
+    
+    # start_date = input("Enter the beginning date (YYYY-MM-DD): ")
+    # end_date = input("Enter the end date (YYYY-MM-DD): ")
+    
+    varaibles.question_text = varaibles.listofQuestions[varaibles.questionIndex]
 
 while True: 
     
@@ -73,7 +89,9 @@ while True:
             #     print(user_text)
             if button_rect.collidepoint(event.pos):
                 print(user_text)
-                question_text = user_text
+                saveInput()
+                #varaibles.question_text = user_text
+                #listOfInputs.append(user_text)
             if input_rect.collidepoint(event.pos): 
                 active = True
             else: 
@@ -109,7 +127,7 @@ while True:
     # draw rectangle and argument passed which should 
     # be on screen 
     pygame.draw.rect(screen, color, input_rect) 
-    quest_text_surface = base_font.render(question_text, True, (0,0, 0)) 
+    quest_text_surface = base_font.render(varaibles.question_text, True, (0,0, 0)) 
       
     # render at position stated in arguments 
     screen.blit(quest_text_surface, (quest_rect.x+5, quest_rect.y+5)) 

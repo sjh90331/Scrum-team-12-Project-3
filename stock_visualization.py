@@ -60,14 +60,21 @@ def plot_data(dates, open_prices, high_prices, low_prices, closing_prices, chart
 def open_chart_in_browser(file_name):
     webbrowser.open(file_name)
 
-if __name__ == "__main__":
+def stockMaker(stock_symbol, chart_type,function,start_date,end_date):
+    """
+    Stock symbol like IBM,
+    Chart type like line or bar
+    function like TIME_SERIES_DAILY or TIME_SERIES_WEEKLY
+    Start date in yyyy-mm-dd format
+    end date in yyyy-mm-dd format
+    """
     # User input section
-    stock_symbol = input("Enter the stock symbol: ")
-    chart_type = input("Enter the chart type (line/bar): ")
-    function = input("Enter the time series function (TIME_SERIES_DAILY, TIME_SERIES_WEEKLY, etc.): ")
+    # stock_symbol = input("Enter the stock symbol: ")
+    # chart_type = input("Enter the chart type (line/bar): ")
+    # function = input("Enter the time series function (TIME_SERIES_DAILY, TIME_SERIES_WEEKLY, etc.): ")
     
-    start_date = input("Enter the beginning date (YYYY-MM-DD): ")
-    end_date = input("Enter the end date (YYYY-MM-DD): ")
+    # start_date = input("Enter the beginning date (YYYY-MM-DD): ")
+    # end_date = input("Enter the end date (YYYY-MM-DD): ")
     
     # Validate date input
     start_date_obj = datetime.strptime(start_date, '%Y-%m-%d')
