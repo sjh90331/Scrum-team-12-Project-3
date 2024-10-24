@@ -9,7 +9,7 @@ def get_stock_data(symbol, function):
     url = f'https://www.alphavantage.co/query?function={function}&symbol={symbol}&interval=5min&apikey={api.api}'
     response = requests.get(url)
     data = response.json()
-    print(data)
+    #print(data)
     return data
 
 def process_data(data, start_date, end_date):
@@ -22,6 +22,7 @@ def process_data(data, start_date, end_date):
     
     for date, values in time_series.items():
         if start_date <= date <= end_date:
+            print("YES ITS HERE")
             dates.append(date)
             open_prices.append(float(values['1. open']))  # Use '1. open' for open price
             high_prices.append(float(values['2. high']))   # Use '2. high' for high price
