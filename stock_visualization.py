@@ -20,17 +20,18 @@ def process_data(data, start_date, end_date):
     high_prices = []
     low_prices = []
     closing_prices = []
-    
+    print(start_date, end_date)
     for date, values in time_series.items():
-        if start_date <= date <= end_date:
+        #if start_date <= date <= end_date:
             print("YES ITS HERE")
             dates.append(date)
             open_prices.append(float(values['1. open']))  # Use '1. open' for open price
             high_prices.append(float(values['2. high']))   # Use '2. high' for high price
             low_prices.append(float(values['3. low']))     # Use '3. low' for low price
             closing_prices.append(float(values['4. close']))  # Use '4. close' for closing price
-        else:
-            print("Something wrong with dates my boy")
+        # else:
+        #     pass
+            #print("Something wrong with dates my boy")
 
     return dates, open_prices, high_prices, low_prices, closing_prices
 
@@ -97,7 +98,7 @@ def stockMaker(stock_symbol, chart_type,function,start_date,end_date,strStartDat
         dates, open_prices, high_prices, low_prices, closing_prices = process_data(stock_data, strStartDate, strEndDate)
         print(dates, open_prices, high_prices, low_prices, closing_prices)
         if dates and open_prices and high_prices and low_prices and closing_prices:
-            chart_file = plot_data(dates, open_prices, high_prices, low_prices, closing_prices, chart_type, stock_symbol)
+            chart_file = plot_data(dates, open_prices, high_prices, low_prices, closing_prices, chart_type)
             if chart_file:
                 open_chart_in_browser(chart_file)
         else:
