@@ -28,9 +28,9 @@ def process_data(data, start_date, end_date):
 
     return dates, open_prices, high_prices, low_prices, closing_prices
 
-def plot_data(dates, open_prices, high_prices, low_prices, closing_prices, chart_type, symbol):
+def plot_data(dates, open_prices, high_prices, low_prices, closing_prices, chart_type):
     if chart_type.lower() == 'line':
-        line_chart = pygal.Line(title='Stock Price for {symbol}', x_title='Date', y_title='Price')
+        line_chart = pygal.Line(title='Stock Price', x_title='Date', y_title='Price')
         
         line_chart.x_labels = dates  # Set the x-axis labels to the dates
         line_chart.add('Open', open_prices)
@@ -41,7 +41,7 @@ def plot_data(dates, open_prices, high_prices, low_prices, closing_prices, chart
         line_chart_file = 'stock_price_chart.svg'
         line_chart.render_to_file(line_chart_file)
     elif chart_type.lower() == 'bar':
-        bar_chart = pygal.Bar(title='Stock Price for {symbol}', x_title='Date', y_title='Price')
+        bar_chart = pygal.Bar(title='Stock Price', x_title='Date', y_title='Price')
         
         bar_chart.x_labels = dates  # Set the x-axis labels to the dates
         bar_chart.add('Open', open_prices)
@@ -56,3 +56,32 @@ def plot_data(dates, open_prices, high_prices, low_prices, closing_prices, chart
         return None
     
     return line_chart_file
+
+def open_chart_in_browser(file_name):
+    webbrowser.open(file_name)
+
+if __name__ == "__main__":
+    # User input section
+    stock_symbol = input("Enter the stock symbol: ")
+    chart_type = input("Enter the chart type (line/bar): ")
+    function = input("Enter the time series function (TIME_SERIES_DAILY, TIME_SERIES_WEEKLY, etc.): ")
+    
+    start_date = input("Enter the beginning date (YYYY-MM-DD): ")
+    end_date = input("Enter the end date (YYYY-MM-DD): ")
+    
+    # Validate date input
+    start_date_obj = datetime.strptime(start_date, '%Y-%m-%d')
+    end_date_obj = datetime.strptime(end_date, '%Y-%m-%d')
+    
+    if end_date_obj < start_date_obj:
+        print("Error: The end date cannot be before the start date.")
+    else:
+        stock_data = get_stock_data(stock_symbol, function)
+        dates, open_prices, high_prices, low_prices, closing_prices = process_data(stock_data, start_date, end_date)
+        
+        if dates and open_prices and high_prices and low_prices and closing_prices:
+            chart_file = plot_data(dates, open_prices, high_prices, low_prices, closing_prices, chart_type, stock_symbol)
+            if chart_file:
+                open_chart_in_browser(chart_file)
+        else:
+            print("No data available for the given date range.")
