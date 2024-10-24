@@ -9,6 +9,7 @@ def get_stock_data(symbol, function):
     url = f'https://www.alphavantage.co/query?function={function}&symbol={symbol}&interval=5min&apikey={api.api}'
     response = requests.get(url)
     data = response.json()
+    print(data)
     return data
 
 def process_data(data, start_date, end_date):
@@ -20,7 +21,7 @@ def process_data(data, start_date, end_date):
     closing_prices = []
     
     for date, values in time_series.items():
-        if start_date <=  data<= end_date:
+        if start_date <= date <= end_date:
             dates.append(date)
             open_prices.append(float(values['1. open']))  # Use '1. open' for open price
             high_prices.append(float(values['2. high']))   # Use '2. high' for high price
@@ -62,6 +63,7 @@ def open_chart_in_browser(file_name):
     webbrowser.open(file_name)
 
 def stockMaker(stock_symbol, chart_type,function,start_date,end_date,strStartDate, strEndDate):
+    #from main import varaibles
     """
     Stock symbol like IBM,
     Chart type like line or bar
@@ -69,6 +71,8 @@ def stockMaker(stock_symbol, chart_type,function,start_date,end_date,strStartDat
     Start date in yyyy-mm-dd format
     end date in yyyy-mm-dd format
     """
+    print(" AAAAAAAAAAAAAAAAAAAAAAAAAAAA")
+    
     print("made it here")
     # User input section
     # stock_symbol = input("Enter the stock symbol: ")
@@ -87,10 +91,15 @@ def stockMaker(stock_symbol, chart_type,function,start_date,end_date,strStartDat
     else:
         stock_data = get_stock_data(stock_symbol, function)
         dates, open_prices, high_prices, low_prices, closing_prices = process_data(stock_data, strStartDate, strEndDate)
-        
+        print(dates, open_prices, high_prices, low_prices, closing_prices)
         if dates and open_prices and high_prices and low_prices and closing_prices:
             chart_file = plot_data(dates, open_prices, high_prices, low_prices, closing_prices, chart_type, stock_symbol)
             if chart_file:
                 open_chart_in_browser(chart_file)
         else:
+            # errorText = "No data available for the given date range."
+            # varaibles.listOfInputs.clear()
+            # varaibles.questionIndex=0
+            # varaibles.stringEndDate = ''
+            # varaibles.stringStartDate = ''
             print("No data available for the given date range.")

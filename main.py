@@ -13,6 +13,7 @@ class varaibles:
                    'Enter the time series function desired (TIME_SERIES_DAILY, TIME_SERIES_WEEKLY, etc.)',
                    'Enter the beginning date in YYYY-MM-DD ',
                    'Enter the end date in YYYY-MM-DD format', 
+                   'Processin'
                    ]
     question_text = listofQuestions[0]
     questionIndex = 0
@@ -63,12 +64,30 @@ height = screen.get_height()
   
 active = False
 def saveInput():
+    
+    if varaibles.questionIndex == 0:   
+        if 0 < len(varaibles.listOfInputs):
+            if len(varaibles.listOfInputs[0]) > 5:
+                varaibles.errorText = 'Hey thats not a vaild symbol'
+                return
+            else:
+                varaibles.listOfInputs[0] = varaibles.listOfInputs[0].upper()
     varaibles.listOfInputs.append(user_text)
     #print("question index", varaibles.questionIndex)
-    if varaibles.questionIndex < len(varaibles.listofQuestions):
-        #print(varaibles.questionIndex, len(varaibles.listofQuestions)-1)
+    ###
+    ### THIS PROCESSES THE QUESTIONARE TO THE NEXT QUESTION
+    ###
+    if varaibles.questionIndex < len(varaibles.listofQuestions)-1:
+        
         varaibles.questionIndex+=1
+        
+    
+    if varaibles.questionIndex == 1:   
+        if 1 < len(varaibles.listOfInputs):
+            if varaibles.listOfInputs[1].upper() != "LINE" or varaibles.listOfInputs[1].upper() != "BAR":
+                varaibles.errorText = 'Hey thats not a vaild type of chart'
     if varaibles.questionIndex == 4:
+        print(varaibles.listOfInputs[3])
         try:
             ## FIRST DATE
             varaibles.stringStartDate =varaibles.listOfInputs[3]
@@ -82,6 +101,7 @@ def saveInput():
         
         try:
             ## END DATE
+            
             varaibles.stringEndDate = varaibles.listOfInputs[4]
             varaibles.listOfInputs[4] = datetime.strptime(varaibles.listOfInputs[4], '%Y-%m-%d')
             if varaibles.listOfInputs[4] < varaibles.listOfInputs[3]:
@@ -96,8 +116,8 @@ def saveInput():
         print(varaibles.listOfInputs[3],varaibles.listOfInputs[4], type(varaibles.listOfInputs[3]),type(varaibles.listOfInputs[4]))
         stock_visualization.stockMaker(varaibles.listOfInputs[0],varaibles.listOfInputs[1],varaibles.listOfInputs[2],
                                        varaibles.listOfInputs[3],varaibles.listOfInputs[4], varaibles.stringStartDate,varaibles.stringEndDate)
-        #print("END OF QUESTION")
-    
+        print("END OF QUESTION")
+    print(varaibles.questionIndex)
     questionAsker()
 def questionAsker():
      # stock_symbol = input("Enter the stock symbol: ")
