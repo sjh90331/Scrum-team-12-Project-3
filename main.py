@@ -19,6 +19,8 @@ class varaibles:
     listOfInputs = []
     secretQuestion = "Enter an end date not below the begining date."
     errorText = ''
+    stringStartDate = ''
+    stringEndDate =''
 
 
 # pygame.init() will initialize all 
@@ -69,6 +71,7 @@ def saveInput():
     if varaibles.questionIndex == 4:
         try:
             ## FIRST DATE
+            varaibles.stringStartDate =varaibles.listOfInputs[3]
             varaibles.listOfInputs[3] = datetime.strptime(varaibles.listOfInputs[3], '%Y-%m-%d')
         except Exception as e:
             print(e, "FIRST DATE")
@@ -79,6 +82,7 @@ def saveInput():
         
         try:
             ## END DATE
+            varaibles.stringEndDate = varaibles.listOfInputs[4]
             varaibles.listOfInputs[4] = datetime.strptime(varaibles.listOfInputs[4], '%Y-%m-%d')
             if varaibles.listOfInputs[4] < varaibles.listOfInputs[3]:
                 varaibles.errorText = varaibles.secretQuestion
@@ -91,7 +95,7 @@ def saveInput():
     if varaibles.questionIndex == 5:
         print(varaibles.listOfInputs[3],varaibles.listOfInputs[4], type(varaibles.listOfInputs[3]),type(varaibles.listOfInputs[4]))
         stock_visualization.stockMaker(varaibles.listOfInputs[0],varaibles.listOfInputs[1],varaibles.listOfInputs[2],
-                                       varaibles.listOfInputs[3],varaibles.listOfInputs[4])
+                                       varaibles.listOfInputs[3],varaibles.listOfInputs[4], varaibles.stringStartDate,varaibles.stringEndDate)
         #print("END OF QUESTION")
     
     questionAsker()

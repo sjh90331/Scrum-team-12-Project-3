@@ -20,7 +20,7 @@ def process_data(data, start_date, end_date):
     closing_prices = []
     
     for date, values in time_series.items():
-        if start_date <=  datetime.strptime(data, '%Y-%m-%d') <= end_date:
+        if start_date <=  data<= end_date:
             dates.append(date)
             open_prices.append(float(values['1. open']))  # Use '1. open' for open price
             high_prices.append(float(values['2. high']))   # Use '2. high' for high price
@@ -61,7 +61,7 @@ def plot_data(dates, open_prices, high_prices, low_prices, closing_prices, chart
 def open_chart_in_browser(file_name):
     webbrowser.open(file_name)
 
-def stockMaker(stock_symbol, chart_type,function,start_date,end_date):
+def stockMaker(stock_symbol, chart_type,function,start_date,end_date,strStartDate, strEndDate):
     """
     Stock symbol like IBM,
     Chart type like line or bar
@@ -86,7 +86,7 @@ def stockMaker(stock_symbol, chart_type,function,start_date,end_date):
         print("Error: The end date cannot be before the start date.")
     else:
         stock_data = get_stock_data(stock_symbol, function)
-        dates, open_prices, high_prices, low_prices, closing_prices = process_data(stock_data, start_date, end_date)
+        dates, open_prices, high_prices, low_prices, closing_prices = process_data(stock_data, strStartDate, strEndDate)
         
         if dates and open_prices and high_prices and low_prices and closing_prices:
             chart_file = plot_data(dates, open_prices, high_prices, low_prices, closing_prices, chart_type, stock_symbol)
