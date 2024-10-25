@@ -185,8 +185,6 @@ while True:
     
     # render at position stated in arguments 
     screen.blit(quest_text_surface, (quest_rect.x+5, quest_rect.y+5)) 
-    button_text_rect = button_text_surface.get_rect(center=button_rect.center)  # Center the text
-    screen.blit(button_text_surface, button_text_rect)
     #pygame.display.flip() 
   
   
