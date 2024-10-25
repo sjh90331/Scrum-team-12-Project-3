@@ -64,16 +64,17 @@ height = screen.get_height()
   
 active = False
 def saveInput():
-    
+    variables.listOfInputs.append(user_text)
     if variables.questionIndex == 0:   
         print(f"Length of List of Inputs = {len(variables.listOfInputs)}")
         if 0 < len(variables.listOfInputs):
             if len(variables.listOfInputs[0]) > 5:
                 variables.errorText = 'Hey thats not a vaild symbol'
+                variables.listOfInputs.pop(0)
                 return
             else:
                 variables.listOfInputs[0] = variables.listOfInputs[0].upper()
-    variables.listOfInputs.append(user_text)
+    
     #print("question index", variables.questionIndex)
     ###
     ### THIS PROCESSES THE QUESTIONARE TO THE NEXT QUESTION
@@ -85,6 +86,7 @@ def saveInput():
     
     if variables.questionIndex == 1:   
         if 1 < len(variables.listOfInputs):
+            
             if variables.listOfInputs[1].upper() != "LINE" or variables.listOfInputs[1].upper() != "BAR":
                 variables.errorText = 'Hey thats not a vaild type of chart'
     if variables.questionIndex == 4:

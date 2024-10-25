@@ -6,7 +6,7 @@ import webbrowser
 
 def get_stock_data(symbol, function):
     import api
-    url = f'https://www.alphavantage.co/query?function={function}&symbol={symbol}&interval=5min&apikey={api.api}'
+    url = f'https://www.alphavantage.co/query?function={function}&symbol={symbol}&interval=5min&apikey=HHL99QZD0HC2O9HW'
     response = requests.get(url)
     data = response.json()
     #print(data)
@@ -20,8 +20,9 @@ def process_data(data, start_date, end_date):
     high_prices = []
     low_prices = []
     closing_prices = []
-    print(start_date, end_date)
+    
     for date, values in time_series.items():
+        print(start_date, date,end_date)
         if start_date <= date <= end_date:
             print("YES ITS HERE")
             dates.append(date)
