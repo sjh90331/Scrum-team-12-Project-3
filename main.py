@@ -7,7 +7,7 @@ import sys
 import stock_visualization
 from datetime import datetime
 
-class varaibles:
+class variables:
     listofQuestions = ['Enter the stock symbol for the company you would like',
                    'Enter chart type you would like (line/bar)',
                    'Enter the time series function desired (TIME_SERIES_DAILY, TIME_SERIES_WEEKLY, etc.)',
@@ -65,59 +65,60 @@ height = screen.get_height()
 active = False
 def saveInput():
     
-    if varaibles.questionIndex == 0:   
-        if 0 < len(varaibles.listOfInputs):
-            if len(varaibles.listOfInputs[0]) > 5:
-                varaibles.errorText = 'Hey thats not a vaild symbol'
+    if variables.questionIndex == 0:   
+        print(f"Length of List of Inputs = {len(variables.listOfInputs)}")
+        if 0 < len(variables.listOfInputs):
+            if len(variables.listOfInputs[0]) > 5:
+                variables.errorText = 'Hey thats not a vaild symbol'
                 return
             else:
-                varaibles.listOfInputs[0] = varaibles.listOfInputs[0].upper()
-    varaibles.listOfInputs.append(user_text)
-    #print("question index", varaibles.questionIndex)
+                variables.listOfInputs[0] = variables.listOfInputs[0].upper()
+    variables.listOfInputs.append(user_text)
+    #print("question index", variables.questionIndex)
     ###
     ### THIS PROCESSES THE QUESTIONARE TO THE NEXT QUESTION
     ###
-    if varaibles.questionIndex < len(varaibles.listofQuestions)-1:
+    if variables.questionIndex < len(variables.listofQuestions)-1:
         
-        varaibles.questionIndex+=1
+        variables.questionIndex+=1
         
     
-    if varaibles.questionIndex == 1:   
-        if 1 < len(varaibles.listOfInputs):
-            if varaibles.listOfInputs[1].upper() != "LINE" or varaibles.listOfInputs[1].upper() != "BAR":
-                varaibles.errorText = 'Hey thats not a vaild type of chart'
-    if varaibles.questionIndex == 4:
-        print(varaibles.listOfInputs[3])
+    if variables.questionIndex == 1:   
+        if 1 < len(variables.listOfInputs):
+            if variables.listOfInputs[1].upper() != "LINE" or variables.listOfInputs[1].upper() != "BAR":
+                variables.errorText = 'Hey thats not a vaild type of chart'
+    if variables.questionIndex == 4:
+        print(variables.listOfInputs[3])
         try:
             ## FIRST DATE
-            varaibles.stringStartDate =varaibles.listOfInputs[3]
-            varaibles.listOfInputs[3] = datetime.strptime(varaibles.listOfInputs[3], '%Y-%m-%d')
+            variables.stringStartDate =variables.listOfInputs[3]
+            variables.listOfInputs[3] = datetime.strptime(variables.listOfInputs[3], '%Y-%m-%d')
         except Exception as e:
             print(e, "FIRST DATE")
-            varaibles.questionIndex-=1
-            varaibles.listOfInputs.pop(3)
-            varaibles.errorText = "Hey your input does not match format '%Y-%m-%d' try again"
-    if varaibles.questionIndex== 5:
+            variables.questionIndex-=1
+            variables.listOfInputs.pop(3)
+            variables.errorText = "Hey your input does not match format '%Y-%m-%d' try again"
+    if variables.questionIndex== 5:
         
         try:
             ## END DATE
             
-            varaibles.stringEndDate = varaibles.listOfInputs[4]
-            varaibles.listOfInputs[4] = datetime.strptime(varaibles.listOfInputs[4], '%Y-%m-%d')
-            if varaibles.listOfInputs[4] < varaibles.listOfInputs[3]:
-                varaibles.errorText = varaibles.secretQuestion
-                varaibles.listOfInputs.pop(4)
+            variables.stringEndDate = variables.listOfInputs[4]
+            variables.listOfInputs[4] = datetime.strptime(variables.listOfInputs[4], '%Y-%m-%d')
+            if variables.listOfInputs[4] < variables.listOfInputs[3]:
+                variables.errorText = variables.secretQuestion
+                variables.listOfInputs.pop(4)
         except Exception as e:
             print(e, "END DATE")
-            varaibles.questionIndex-=1
-            varaibles.errorText = "Hey your input does not match format '%Y-%m-%d' try again"
-            varaibles.listOfInputs.pop(4)
-    if varaibles.questionIndex == 5:
-        print(varaibles.listOfInputs[3],varaibles.listOfInputs[4], type(varaibles.listOfInputs[3]),type(varaibles.listOfInputs[4]))
-        stock_visualization.stockMaker(varaibles.listOfInputs[0],varaibles.listOfInputs[1],varaibles.listOfInputs[2],
-                                       varaibles.listOfInputs[3],varaibles.listOfInputs[4], varaibles.stringStartDate,varaibles.stringEndDate)
+            variables.questionIndex-=1
+            variables.errorText = "Hey your input does not match format '%Y-%m-%d' try again"
+            variables.listOfInputs.pop(4)
+    if variables.questionIndex == 5:
+        print(variables.listOfInputs[3],variables.listOfInputs[4], type(variables.listOfInputs[3]),type(variables.listOfInputs[4]))
+        stock_visualization.stockMaker(variables.listOfInputs[0],variables.listOfInputs[1],variables.listOfInputs[2],
+                                       variables.listOfInputs[3],variables.listOfInputs[4], variables.stringStartDate,variables.stringEndDate)
         print("END OF QUESTION")
-    print(varaibles.questionIndex)
+    print(variables.questionIndex)
     questionAsker()
 def questionAsker():
      # stock_symbol = input("Enter the stock symbol: ")
@@ -127,7 +128,7 @@ def questionAsker():
     # start_date = input("Enter the beginning date (YYYY-MM-DD): ")
     # end_date = input("Enter the end date (YYYY-MM-DD): ")
     
-    varaibles.question_text = varaibles.listofQuestions[varaibles.questionIndex]
+    variables.question_text = variables.listofQuestions[variables.questionIndex]
 
 while True: 
     
@@ -144,7 +145,7 @@ while True:
             if button_rect.collidepoint(event.pos):
                 print(user_text)
                 saveInput()
-                #varaibles.question_text = user_text
+                #variables.question_text = user_text
                 #listOfInputs.append(user_text)
             if input_rect.collidepoint(event.pos): 
                 active = True
@@ -181,7 +182,7 @@ while True:
     # draw rectangle and argument passed which should 
     # be on screen 
     pygame.draw.rect(screen, color, input_rect) 
-    quest_text_surface = base_font.render(varaibles.question_text, True, (0,0, 0)) 
+    quest_text_surface = base_font.render(variables.question_text, True, (0,0, 0)) 
       
     # render at position stated in arguments 
     screen.blit(quest_text_surface, (quest_rect.x+5, quest_rect.y+5)) 
@@ -191,7 +192,7 @@ while True:
   
   
   
-    error_text_surface = base_font.render(varaibles.errorText, True, (255,0, 0)) 
+    error_text_surface = base_font.render(variables.errorText, True, (255,0, 0)) 
       
     # # render at position stated in arguments 
     screen.blit(error_text_surface, (error_rect.x+5, error_rect.y+5)) 
