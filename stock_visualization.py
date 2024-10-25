@@ -5,11 +5,10 @@ from datetime import datetime
 import webbrowser
 
 def get_stock_data(symbol, function):
-    import api
     url = f'https://www.alphavantage.co/query?function={function}&symbol={symbol}&interval=5min&apikey=HHL99QZD0HC2O9HW'
     response = requests.get(url)
     data = response.json()
-    #print(data)
+    
     return data
 
 def process_data(data, start_date, end_date):
@@ -20,9 +19,8 @@ def process_data(data, start_date, end_date):
     high_prices = []
     low_prices = []
     closing_prices = []
-    
+    print(start_date, end_date)
     for date, values in time_series.items():
-        print(start_date, date,end_date)
         if start_date <= date <= end_date:
             print("YES ITS HERE")
             dates.append(date)
@@ -77,7 +75,9 @@ def stockMaker(stock_symbol, chart_type,function,start_date,end_date,strStartDat
     Start date in yyyy-mm-dd format
     end date in yyyy-mm-dd format
     """
-   #print("made it here")
+    print(" AAAAAAAAAAAAAAAAAAAAAAAAAAAA")
+    
+    print("made it here")
     # User input section
     # stock_symbol = input("Enter the stock symbol: ")
     # chart_type = input("Enter the chart type (line/bar): ")
@@ -95,7 +95,7 @@ def stockMaker(stock_symbol, chart_type,function,start_date,end_date,strStartDat
     else:
         stock_data = get_stock_data(stock_symbol, function)
         dates, open_prices, high_prices, low_prices, closing_prices = process_data(stock_data, strStartDate, strEndDate)
-        #print(dates, open_prices, high_prices, low_prices, closing_prices)
+        print(dates, open_prices, high_prices, low_prices, closing_prices)
         if dates and open_prices and high_prices and low_prices and closing_prices:
             chart_file = plot_data(dates, open_prices, high_prices, low_prices, closing_prices, chart_type)
             if chart_file:
