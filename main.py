@@ -1,7 +1,4 @@
-import pygal
-import lxml
-import api
-import json
+
 import pygame 
 import sys 
 import stock_visualization
@@ -35,20 +32,23 @@ clock = pygame.time.Clock()
   
 # it will display on screen 
 screen = pygame.display.set_mode([980, 900]) 
-  
+
 # basic font for user typed 
 base_font = pygame.font.Font(None, 32) 
-user_text = '' 
-  
+user_text = ''
+
 
 # create rectangle 
 input_rect = pygame.Rect(100, 50, 340, 32) 
 button_rect = pygame.Rect(350,100,140,40)
+button_label = "Click Here"
+button_text_surface = base_font.render(button_label, True, (255, 255, 255))  # White text
 quest_rect = pygame.Rect(10, 10, 340, 10) 
 error_rect = pygame.Rect(20, 410, 340, 10) 
-  
 
 color_active = pygame.Color('lightskyblue3') 
+
+
 
 color_light = (10,170,170) 
   
@@ -182,9 +182,11 @@ while True:
     # be on screen 
     pygame.draw.rect(screen, color, input_rect) 
     quest_text_surface = base_font.render(varaibles.question_text, True, (0,0, 0)) 
-      
+    
     # render at position stated in arguments 
     screen.blit(quest_text_surface, (quest_rect.x+5, quest_rect.y+5)) 
+    button_text_rect = button_text_surface.get_rect(center=button_rect.center)  # Center the text
+    screen.blit(button_text_surface, button_text_rect)
     #pygame.display.flip() 
   
   
